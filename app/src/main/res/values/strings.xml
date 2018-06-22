@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SMS Locator</string>
+    <string name="welcome">Welcome to SMS Locator!</string>
 </resources>

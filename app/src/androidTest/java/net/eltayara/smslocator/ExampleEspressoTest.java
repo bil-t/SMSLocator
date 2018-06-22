@@ -1,9 +1,9 @@
 package net.eltayara.smslocator;
 
+import android.support.test.rule.ActivityTestRule;
+
 import org.junit.Rule;
 import org.junit.Test;
-
-import android.support.test.rule.ActivityTestRule;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -17,7 +17,7 @@ public class ExampleEspressoTest {
 
     @Test
     public void testActivityShouldHaveText() throws InterruptedException {
-        onView(withId(R.id.mainText)).check(matches(withText("Hello World!")));
+        onView(withId(R.id.mainText)).check(matches(withText(R.string.welcome)));
     }
 
 }
