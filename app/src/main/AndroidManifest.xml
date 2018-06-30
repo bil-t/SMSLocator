@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="net.eltayara.smslocator">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+
     <uses-feature
         android:name="android.hardware.telephony"
-        android:required="false" />
+        android:required="true"
+        tools:ignore="UnsupportedChromeOsHardware" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="true"
+        tools:ignore="UnsupportedChromeOsHardware" />
 
     <application
         android:allowBackup="true"
@@ -22,14 +32,18 @@
             </intent-filter>
         </activity>
         <receiver
-            android:name=".RequestListener"
+            android:name=".SMSListener"
             android:priority="1000">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+
         <service
-            android:name=".RequestService"
+            android:name=".UserLocationService"
+            android:exported="false" />
+        <service
+            android:name=".SMSNotifierService"
             android:exported="false" />
     </application>
 </manifest>

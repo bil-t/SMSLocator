@@ -15,7 +15,7 @@ import org.robolectric.shadows.ShadowLog;
 import java.util.List;
 
 @RunWith(RobolectricTestRunner.class)
-public class RequestListenerTest {
+public class SMSListenerTest {
 
     public static final String SENDER = "0623699761";
 
@@ -36,7 +36,7 @@ public class RequestListenerTest {
         boolean receiverFound = false;
         for (ShadowApplication.Wrapper wrapper : registeredReceivers) {
             if (!receiverFound)
-                receiverFound = RequestListener.class.getSimpleName().equals(
+                receiverFound = SMSListener.class.getSimpleName().equals(
                         wrapper.broadcastReceiver.getClass().getSimpleName());
         }
 
@@ -54,10 +54,10 @@ public class RequestListenerTest {
         List<BroadcastReceiver> receiversForIntent = shadowApplication.getReceiversForIntent(intent);
         Assert.assertEquals("Only one broadcast receiver shoudl be registered", 1, receiversForIntent.size());
 
-        RequestListener receiver = (RequestListener) receiversForIntent.get(0);
+        SMSListener receiver = (SMSListener) receiversForIntent.get(0);
         receiver.onReceive(shadowApplication.getApplicationContext(), intent);
 
         Intent serviceIntent = shadowApplication.peekNextStartedService();
-        Assert.assertEquals("Expected the RequestService service to be invoked", RequestService.class.getCanonicalName(), serviceIntent.getComponent().getClassName());
+        Assert.assertEquals("Expected the UserLocationService service to be invoked", UserLocationService.class.getCanonicalName(), serviceIntent.getComponent().getClassName());
     }
 }

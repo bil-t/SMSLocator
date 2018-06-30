@@ -33,7 +33,7 @@ public class SMSIntentBuilder {
     }
 
     public Intent build() {
-        String body = RequestListener.LOC;
+        String body = SMSListener.LOC;
         byte[] pdu = null;
         byte[] scBytes = PhoneNumberUtils
                 .networkPortionToCalledPartyBCD("0000000000");

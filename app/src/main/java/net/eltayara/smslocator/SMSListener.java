@@ -9,14 +9,14 @@ import android.support.annotation.RequiresApi;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
-public class RequestListener extends BroadcastReceiver {
+public class SMSListener extends BroadcastReceiver {
     public static final String LOC = "@LOC#";
-    private final static String TAG = RequestListener.class.getSimpleName();
+    private final static String TAG = SMSListener.class.getSimpleName();
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(TAG, "onReceive was triggered");
+        Log.d(TAG, "onReceive was triggered " + intent);
 
         if (Telephony.Sms.Intents.SMS_RECEIVED_ACTION.equals(intent.getAction())) {
             for (SmsMessage smsMessage : Telephony.Sms.Intents.getMessagesFromIntent(intent)) {
@@ -30,8 +30,8 @@ public class RequestListener extends BroadcastReceiver {
     }
 
     protected void startService(Context context, String requester) {
-        LocationRequest locationRequest = new LocationRequest(context, requester);
-        context.startService(new Intent(context, RequestService.class));
+        Intent intent = UserLocationService.newIntent(context, requester);
+        context.startService(intent);
     }
 
     protected boolean hasLocationRequest(SmsMessage smsMessage) {
